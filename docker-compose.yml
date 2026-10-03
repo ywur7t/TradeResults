@@ -1,0 +1,24 @@
+services:
+  
+  clickhouse:
+    image: clickhouse/clickhouse-server:latest
+    container_name: clickhouse-server
+    ports:
+      - "8123:8123"
+    environment:
+      CLICKHOUSE_USER: default
+      CLICKHOUSE_PASSWORD: default
+    volumes:
+      - clickhouse_data:/var/lib/clickhouse
+      - clickhousedatalogs:/var/log/clickhouse-server
+      - ./data/staging:/var/lib/clickhouse/user_files
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+    restart: always
+
+
+volumes:
+  clickhouse_data:
+  clickhousedatalogs:
